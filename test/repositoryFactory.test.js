@@ -1,5 +1,5 @@
 import {setUpTest} from './util';
-import {RepositoryFactory as respositoryFactory} from '../src';
+import respositoryFactory from '../src';
 
 const modelMock = {
   Car: {},
