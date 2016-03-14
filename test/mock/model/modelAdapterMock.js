@@ -1,15 +1,15 @@
-export default function modelAdapterMock(schema) {
-  schema.reset();
+export default function modelAdapterMock(driver) {
+  driver.reset();
 
   return {
     // this method is not part of the real api
     // it's just for unit testing porpuses.
     reset: () => {
-      schema.reset();
+      driver.reset();
     },
     count: (query = {}) => {
       return promise((resolve, reject) => {
-        schema.count(query, (err, length) => {
+        driver.count(query, (err, length) => {
           if (err) {
             reject(err);
           }
@@ -20,7 +20,7 @@ export default function modelAdapterMock(schema) {
     },
     query: (queryStringObject = {}) => {
       return promise((resolve, reject) => {
-        schema.query(queryStringObject, (err, data) => {
+        driver.query(queryStringObject, (err, data) => {
           if (err) {
             return reject(err);
           }
@@ -54,7 +54,7 @@ export default function modelAdapterMock(schema) {
 
     find: (query, fields, options) => {
       return promise((resolve, reject) => {
-        schema.find(query, fields, options, (err, docs) => {
+        driver.find(query, fields, options, (err, docs) => {
           if (err) {
             return reject(err);
           }
@@ -68,7 +68,7 @@ export default function modelAdapterMock(schema) {
 
     findOne: (query, fields, options) => {
       return promise((resolve, reject) => {
-        schema.findOne(query, fields, options, (err, doc) => {
+        driver.findOne(query, fields, options, (err, doc) => {
           if (err) {
             return reject(err);
           }
@@ -80,7 +80,7 @@ export default function modelAdapterMock(schema) {
 
     findOneById: (id, fields, options) => {
       return promise((resolve, reject) => {
-        schema.findOne({ _id: id }, fields, options, (err, doc) => {
+        driver.findOne({ _id: id }, fields, options, (err, doc) => {
           if (err) {
             return reject(err);
           }
@@ -92,7 +92,7 @@ export default function modelAdapterMock(schema) {
 
     insert: (params) => {
       return promise((resolve, reject) => {
-        schema.create(params, (err, doc) => {
+        driver.create(params, (err, doc) => {
           if (err) {
             return reject(err);
           }
@@ -104,7 +104,7 @@ export default function modelAdapterMock(schema) {
 
     update: (conditions, update) => {
       return promise((resolve, reject) => {
-        schema.update(conditions, update, (err, result) => {
+        driver.update(conditions, update, (err, result) => {
           if (err) {
             return reject(err);
           }
@@ -116,7 +116,7 @@ export default function modelAdapterMock(schema) {
 
     findOneAndUpdate: (conditions, update) => {
       return promise((resolve, reject) => {
-        schema.findOneAndUpdate(conditions, update, { new: true }, (err, doc) => {
+        driver.findOneAndUpdate(conditions, update, { new: true }, (err, doc) => {
           if (err) {
             return reject(err);
           }
@@ -128,7 +128,7 @@ export default function modelAdapterMock(schema) {
 
     findOneAndRemove: (conditions) => {
       return promise((resolve, reject) => {
-        schema.findOneAndRemove(conditions, (err, doc) => {
+        driver.findOneAndRemove(conditions, (err, doc) => {
           if (err) {
             return reject(err);
           }
@@ -140,7 +140,7 @@ export default function modelAdapterMock(schema) {
 
     remove: (conditions) => {
       return promise((resolve, reject) => {
-        schema.remove(conditions, (err, result) => {
+        driver.remove(conditions, (err, result) => {
           if (err) {
             return reject(err);
           }
