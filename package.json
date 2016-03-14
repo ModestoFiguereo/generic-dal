@@ -1,12 +1,13 @@
 {
-  "name": "nodejs-generic-dal",
-  "version": "1.0.0",
+  "name": "generic-dal",
+  "version": "1.0.1",
   "description": "You put this package on top of your db drivers so your app does not depend on specific underlying db.",
   "main": "src/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "compile": "gulp compile",
     "test": "gulp test/unit"
   },
   "repository": {
@@ -22,16 +23,16 @@
   "author": "Modesto Figuereo Fernandez <figuereo.fernandez.modesto@gmail.com> (http://www.modestofiguereo.com)",
   "license": "MIT",
   "dependencies": {
-    "blue-tape": "^0.2.0",
-    "co": "^4.6.0",
-    "mingo": "^0.6.3",
-    "mongoid": "0.0.1"
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "co": "^4.6.0",
+    "blue-tape": "^0.2.0",
+    "mingo": "^0.6.3",
+    "mongoid": "0.0.1",
     "babel": "^5.8.23",
     "babel-eslint": "^4.1.1",
     "babel-runtime": "^5.8.24",
-    "blue-tape": "^0.1.10",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.2.1",
     "gulp-eslint": "^1.0.0",
@@ -43,6 +44,7 @@
     "eslint": "^1.4.3",
     "eslint-config-airbnb": "0.0.8",
     "eslint-plugin-react": "3.2.3",
-    "faucet": "0.0.1"
+    "faucet": "0.0.1",
+    "rimraf": "^2.5.2"
   }
 }
