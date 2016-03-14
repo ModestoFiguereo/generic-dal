@@ -1,4 +1,4 @@
-export default function Repository({entity, activeRecordFactory}) {
+export default function repository({entity, activeRecordFactory}) {
   return {
 
     /**
