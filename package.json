@@ -1,6 +1,6 @@
 {
   "name": "generic-dal",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "You put this package on top of your db drivers so your app does not depend on specific underlying db.",
   "main": ".tmp/src/index.js",
   "directories": {
@@ -9,7 +9,6 @@
   "scripts": {
     "compile": "gulp compile",
     "test": "gulp test/unit",
-    "publish": "gulp compile",
     "install": "gulp compile"
   },
   "repository": {

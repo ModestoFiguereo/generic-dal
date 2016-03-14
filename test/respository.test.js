@@ -3,7 +3,6 @@ import modelMock from './mock/model';
 import respositoryFactory from '../src';
 const repositories = respositoryFactory(modelMock);
 
-
 setUpTest('repository#query', function* testRepositoryQuery(assert) {
   // TODO: implement this unit test properly
   const rows = yield getRepository().query('?q={}');
@@ -36,6 +35,15 @@ setUpTest('repository#findOneById', function* testRepositoryQuery(assert) {
   const record = yield getRepository().findOneById('563dfb1268b32ee12c000012');
   assert.true(record !== null, 'should return one');
   assert.equal(record.firstName, 'Addison', 'firstName should be equal to Addison');
+});
+
+setUpTest('repository#findOneById().save()', function* testRepositoryQuery(assert) {
+  const record = yield getRepository().findOneById('563dfb1268b32ee12c000012');
+  record.firstName = 'changed';
+  const updated = yield record.save();
+
+  assert.true(updated !== null, 'should return one');
+  assert.equal(updated.firstName, 'changed', 'firstName should be equal to "changed"');
 });
 
 setUpTest('repository#insert', function* testRepositoryQuery(assert) {

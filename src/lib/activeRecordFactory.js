@@ -9,26 +9,29 @@ export default function activeRecordFactory(entity) {
     const activeRecord = {
       save: function() {
         return new Promise((resolve, reject) => {
-          entity.findOneAndUpdate({ _id: this._id }, this)
+          entity
+            .findOneAndUpdate({ _id: this._id }, this)
             .then(onUpdate)
             .catch(onError);
 
-          const onUpdate = (updatedDoc) => {
-            if (updatedDoc) {
-              resolve(activeRecordFactory(entity)(updatedDoc));
-            } else {
-              entity.insert(this)
-                .then(onInsert)
-                .catch(onError);
-            }
+          function onUpdate(updatedDoc) {
+            updatedDoc ? reportSuccess(updatedDoc) : insert(this);
+          }
+
+          const insert = (params) => {
+            entity.insert(params).then(onInsert).catch(onError);
           };
 
           const onInsert = (insertedDoc) => {
-            resolve(activeRecordFactory(entity)(insertedDoc));
+            reportSuccess(insertedDoc);
           };
 
           const onError = (err) => {
             reject(err);
+          };
+
+          const reportSuccess = (result) => {
+            resolve(activeRecordFactory(entity)(result));
           };
         });
       },
