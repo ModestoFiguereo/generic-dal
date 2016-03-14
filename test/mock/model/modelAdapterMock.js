@@ -1,7 +1,9 @@
-export default function Model(schema) {
+export default function modelAdapterMock(schema) {
   schema.reset();
 
   return {
+    // this method is not part of the real api
+    // it's just for unit testing porpuses.
     reset: () => {
       schema.reset();
     },

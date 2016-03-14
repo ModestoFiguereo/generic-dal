@@ -2,12 +2,14 @@ import Mingo from 'mingo';
 import _ from 'underscore';
 import mongoid from 'mongoid';
 
-export default function MongooseModelMock(data) {
-  let collection = data();
+export default function dbDriverMock(dataMocker) {
+  let collection = dataMocker();
 
   return {
+    // this method is not part of the real api
+    // it's just for unit testing porpuses.
     reset: () => {
-      collection = data();
+      collection = dataMocker();
     },
     count: (query, callback) => {
       const length = Mingo.find(collection, query).count();

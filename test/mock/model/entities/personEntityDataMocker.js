@@ -1,4 +1,4 @@
-export default function() {
+export default function personEntityDataMocker() {
   return [
     {
       '_id': '563df9bc68b32ee12c000001',

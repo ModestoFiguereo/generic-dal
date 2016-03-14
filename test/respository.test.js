@@ -1,19 +1,17 @@
 import {setUpTest} from './util';
-import repository from '../src/lib/repository';
-import activeRecordFactory from '../src/lib/activeRecordFactory';
-import modelMock from './mock/ModelMock';
-import mongooseModelMock from './mock/MongooseModelMock';
-import data from './mock/data/PersonModelData';
+import modelMock from './mock/model';
+import respositoryFactory from '../src';
+const repositories = respositoryFactory(modelMock);
 
-setUpTest('Repository#query', function* testRepositoryQuery(assert) {
-  // NOTICE: this method just return the entire collection
-  // when mocked.
+
+setUpTest('repository#query', function* testRepositoryQuery(assert) {
+  // TODO: implement this unit test properly
   const rows = yield getRepository().query('?q={}');
 
   assert.true(rows.length, 'should have several rows');
 });
 
-setUpTest('Repository#find test when match records', function* testRepositoryQuery(assert) {
+setUpTest('repository#find test when match records', function* testRepositoryQuery(assert) {
   const rows = yield getRepository().find({ lastName: 'Reeves' });
 
   assert.true(rows.length === 2, 'should have two rows');
@@ -21,26 +19,26 @@ setUpTest('Repository#find test when match records', function* testRepositoryQue
   assert.equal(rows[1].lastName, 'Reeves', 'lastName should be equal to Reeves');
 });
 
-setUpTest('Repository#find test when does not match records', function* testRepositoryQuery(assert) {
+setUpTest('repository#find test when does not match records', function* testRepositoryQuery(assert) {
   const rows = yield getRepository().find({ lastName: 'Figuereo' });
 
   assert.false(rows.length, 'should have 0 rows');
 });
 
-setUpTest('Repository#findOne', function* testRepositoryFind(assert) {
+setUpTest('repository#findOne', function* testRepositoryFind(assert) {
   const record = yield getRepository().findOne({lastName: 'Cherry'});
 
   assert.true(record !== null, 'should return one');
   assert.equal(record.lastName, 'Cherry', 'lastName should be equal to Cherry');
 });
 
-setUpTest('Repository#findOneById', function* testRepositoryQuery(assert) {
+setUpTest('repository#findOneById', function* testRepositoryQuery(assert) {
   const record = yield getRepository().findOneById('563dfb1268b32ee12c000012');
   assert.true(record !== null, 'should return one');
   assert.equal(record.firstName, 'Addison', 'firstName should be equal to Addison');
 });
 
-setUpTest('Repository#insert', function* testRepositoryQuery(assert) {
+setUpTest('repository#insert', function* testRepositoryQuery(assert) {
   const savedRecord = yield getRepository().insert({
     'firstName': 'Modesto',
     'lastName': 'Figuereo',
@@ -57,14 +55,14 @@ setUpTest('Repository#insert', function* testRepositoryQuery(assert) {
   assert.equal(savedRecord.password, '123456', 'password should be equal to 123456');
 });
 
-setUpTest('Repository#update', function* testRepositoryQuery(assert) {
+setUpTest('repository#update', function* testRepositoryQuery(assert) {
   const result = yield getRepository().update({ lastName: 'Reeves' }, { password: '52654859saf1wf6aew0' });
 
   assert.true(result.ok, 'ok should be true');
   assert.notEqual(result.nModified, 0, 'one or more should be modified');
 });
 
-setUpTest('Repository#findOneAndUpdate', function* testRepositoryQuery(assert) {
+setUpTest('repository#findOneAndUpdate', function* testRepositoryQuery(assert) {
   const updatedRecord = yield getRepository().findOneAndUpdate(
     { lastName: 'Reeves' },
     { firstName: 'Juan' },
@@ -74,14 +72,14 @@ setUpTest('Repository#findOneAndUpdate', function* testRepositoryQuery(assert) {
   assert.equal(updatedRecord.firstName, 'Juan', 'firstName should be equal to Juan');
 });
 
-setUpTest('Repository#findOneAndRemove', function* testRepositoryQuery(assert) {
+setUpTest('repository#findOneAndRemove', function* testRepositoryQuery(assert) {
   const removedRecord = yield getRepository().findOneAndRemove({ lastName: 'Cherry' });
 
   assert.ok(removedRecord, 'should return the deleted record');
   assert.equal(removedRecord.lastName, 'Cherry', 'lastName should be equal to Cherry');
 });
 
-setUpTest('Repository#remove', function* testRepositoryQuery(assert) {
+setUpTest('repository#remove', function* testRepositoryQuery(assert) {
   const result = yield getRepository().remove({ lastName: 'Reeves' });
 
   assert.true(result.ok, 'operation should be ok');
@@ -89,8 +87,5 @@ setUpTest('Repository#remove', function* testRepositoryQuery(assert) {
 });
 
 function getRepository() {
-  return repository({
-    entity: modelMock(mongooseModelMock(data)),
-    activeRecordFactory: activeRecordFactory(modelMock(mongooseModelMock(data))),
-  });
+  return repositories.personRepository;
 }
