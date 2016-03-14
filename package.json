@@ -1,6 +1,6 @@
 {
   "name": "generic-dal",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "You put this package on top of your db drivers so your app does not depend on specific underlying db.",
   "main": "src/index.js",
   "directories": {
