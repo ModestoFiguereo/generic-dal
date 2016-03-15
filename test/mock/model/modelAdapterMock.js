@@ -1,15 +1,15 @@
-export default function modelAdapterMock(driver) {
-  driver.reset();
+export default function modelAdapterMock(entity) {
+  entity.reset();
 
   return {
     // this method is not part of the real api
     // it's just for unit testing porpuses.
     reset: () => {
-      driver.reset();
+      entity.reset();
     },
     count: (query = {}) => {
       return promise((resolve, reject) => {
-        driver.count(query, (err, length) => {
+        entity.count(query, (err, length) => {
           if (err) {
             reject(err);
           }
@@ -20,7 +20,7 @@ export default function modelAdapterMock(driver) {
     },
     query: (queryStringObject = {}) => {
       return promise((resolve, reject) => {
-        driver.query(queryStringObject, (err, data) => {
+        entity.query(queryStringObject, (err, data) => {
           if (err) {
             return reject(err);
           }
@@ -54,7 +54,7 @@ export default function modelAdapterMock(driver) {
 
     find: (query, fields, options) => {
       return promise((resolve, reject) => {
-        driver.find(query, fields, options, (err, docs) => {
+        entity.find(query, fields, options, (err, docs) => {
           if (err) {
             return reject(err);
           }
@@ -68,7 +68,7 @@ export default function modelAdapterMock(driver) {
 
     findOne: (query, fields, options) => {
       return promise((resolve, reject) => {
-        driver.findOne(query, fields, options, (err, doc) => {
+        entity.findOne(query, fields, options, (err, doc) => {
           if (err) {
             return reject(err);
           }
@@ -80,7 +80,7 @@ export default function modelAdapterMock(driver) {
 
     findOneById: (id, fields, options) => {
       return promise((resolve, reject) => {
-        driver.findOne({ _id: id }, fields, options, (err, doc) => {
+        entity.findOne({ _id: id }, fields, options, (err, doc) => {
           if (err) {
             return reject(err);
           }
@@ -92,7 +92,7 @@ export default function modelAdapterMock(driver) {
 
     insert: (params) => {
       return promise((resolve, reject) => {
-        driver.create(params, (err, doc) => {
+        entity.create(params, (err, doc) => {
           if (err) {
             return reject(err);
           }
@@ -104,7 +104,7 @@ export default function modelAdapterMock(driver) {
 
     update: (conditions, update) => {
       return promise((resolve, reject) => {
-        driver.update(conditions, update, (err, result) => {
+        entity.update(conditions, update, (err, result) => {
           if (err) {
             return reject(err);
           }
@@ -116,7 +116,7 @@ export default function modelAdapterMock(driver) {
 
     findOneAndUpdate: (conditions, update) => {
       return promise((resolve, reject) => {
-        driver.findOneAndUpdate(conditions, update, { new: true }, (err, doc) => {
+        entity.findOneAndUpdate(conditions, update, { new: true }, (err, doc) => {
           if (err) {
             return reject(err);
           }
@@ -128,7 +128,7 @@ export default function modelAdapterMock(driver) {
 
     findOneAndRemove: (conditions) => {
       return promise((resolve, reject) => {
-        driver.findOneAndRemove(conditions, (err, doc) => {
+        entity.findOneAndRemove(conditions, (err, doc) => {
           if (err) {
             return reject(err);
           }
@@ -140,7 +140,7 @@ export default function modelAdapterMock(driver) {
 
     remove: (conditions) => {
       return promise((resolve, reject) => {
-        driver.remove(conditions, (err, result) => {
+        entity.remove(conditions, (err, result) => {
           if (err) {
             return reject(err);
           }
