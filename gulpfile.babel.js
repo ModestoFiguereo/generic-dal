@@ -1,48 +1,48 @@
 /* eslint-disable */
-var gulp = require('gulp');
-var babel = require('gulp-babel');
-var shell = require('gulp-shell');
-var eslint = require('gulp-eslint');
-var rename = require('gulp-rename');
-var rimraf = require('rimraf');
+import gulp from 'gulp';
+import babel from 'gulp-babel';
+import shell from 'gulp-shell';
+import eslint from 'gulp-eslint';
+import rename from 'gulp-rename';
+import rimraf from 'rimraf';
 
 /**
  * Where compiled files go.
  * NOTE: Do not edit anything here. Changes will be deleted upon next build.
  * @type {String}
  */
-var TMP_DIR = '.tmp';
+const TMP_DIR = '.tmp';
 
 /**
  * Where test files go.
  * @type {String}
  */
-var TEST_DIR = 'test';
+const TEST_DIR = 'test';
 
 /**
  * Where source code goes.
  * @type {String}
  */
-var SOURCE_DIR = 'src';
+const SOURCE_DIR = 'src';
 
 /**
  * Test files.
  * @type {String}
  */
-var TEST_FILES = `${TEST_DIR}/**/*.test.js`;
-var TEST_DIR_CONTENT = `${TEST_DIR}/**/*.js`;
+const TEST_FILES = `${TEST_DIR}/**/*.test.js`;
+const TEST_DIR_CONTENT = `${TEST_DIR}/**/*.js`;
 
 /**
  * Source files.
  * @type {String}
  */
-var SOURCE_FILES = `${SOURCE_DIR}/**/*.js`;
+const SOURCE_FILES = `${SOURCE_DIR}/**/*.js`;
 
 /**
  * Holds all files.
  * @type {Array}
  */
-var FILES = []
+const FILES = []
 .concat(TEST_FILES)
 .concat(TEST_DIR_CONTENT)
 .concat(SOURCE_FILES);
@@ -51,7 +51,7 @@ var FILES = []
  * `gulp default`
  * An alias for `test` task.
  */
-gulp.task('default', ['test'], function () {
+gulp.task('default', ['test'], () => {
 });
 
 /**
@@ -66,10 +66,10 @@ gulp.task('test/unit', ['compile'], shell.task([
  * `gulp compile`
  * Compiles ES6 files into ES5.
  */
-gulp.task('compile', ['lint', 'clean'], function () {
+gulp.task('compile', ['lint', 'clean'], () => {
   return gulp.src(FILES, {base: '.'})
   .pipe(babel())
-  .pipe(rename(function (p) { p.extname = '.js' }))
+  .pipe(rename((p) => p.extname = '.js'))
   .pipe(gulp.dest(TMP_DIR));
 });
 
@@ -77,8 +77,8 @@ gulp.task('compile', ['lint', 'clean'], function () {
  * `gulp lint`
  * Checks ES6 files for syntax errors.
  */
-gulp.task('lint', function () {
-  var filesToLint = FILES.concat([
+gulp.task('lint', () => {
+  const filesToLint = FILES.concat([
     'gulpfile.babel.js',
   ]);
 
@@ -92,10 +92,10 @@ gulp.task('lint', function () {
  * `gulp clean`
  * Deletes temporal directory.
  */
-gulp.task('clean', function (done) {
+gulp.task('clean', (done) => {
   rimraf(TMP_DIR, done);
 });
 
-gulp.on('err', function (e) {
+gulp.on('err', (e) => {
   console.log(e.err.stack);
 });

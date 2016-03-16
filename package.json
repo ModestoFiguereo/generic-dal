@@ -1,6 +1,6 @@
 {
   "name": "generic-dal",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "You put this package on top of your db drivers so your app does not depend on specific underlying db.",
   "main": ".tmp/src/index.js",
   "directories": {
@@ -9,7 +9,7 @@
   "scripts": {
     "compile": "gulp compile",
     "test": "gulp test/unit",
-    "postinstall": "gulp compile"
+    "postinstall": "postinstall-build .tmp 'npm run compile'"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,8 @@
   "author": "Modesto Figuereo Fernandez <figuereo.fernandez.modesto@gmail.com> (http://www.modestofiguereo.com)",
   "license": "MIT",
   "dependencies": {
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "postinstall-build": "^0.2.1"
   },
   "devDependencies": {
     "co": "^4.6.0",
