@@ -95,8 +95,8 @@ export default function repository({entity, activeRecordFactory}) {
      * @param {Object} filter - filter the data.
      * @param {Object} params - fields/columns to be modified.
      */
-    update: (filter, params) => {
-      return entity.update(filter, params);
+    update: (filter, params, options) => {
+      return entity.update(filter, params, options);
     },
 
     /**
